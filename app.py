@@ -1,10 +1,14 @@
 from flask import Flask
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+from os import getenv
+from werkzeug.security import check_password_hash, generate_password_hash
+
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://"
+app.secret_key = getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 index = 0
 sofar = "3."
@@ -14,6 +18,26 @@ sofar = "3."
 def mainpage():
     return render_template("page.html")
 
+@app.route("/login",methods=["POST"])
+def login():
+    username = request.form["username"]
+    usernametuple = (username,)
+    password = request.form["password"]
+    hash_value = generate_password_hash(password)
+    if usernametuple in db.session.execute(text("SELECT username FROM users")).fetchall():
+        if hash_value == db.session.execute(text("SELECT password FROM users WHERE username=:username"),{"username":username}).fetchone()[0]:
+            session["username"] = username
+    else:
+        sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
+        db.session.execute(sql, {"username":username, "password":hash_value})
+        db.session.commit()
+        session["username"] = username
+    return redirect("/")
+
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
 
 @app.route("/play")
 def play():
