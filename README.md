@@ -15,3 +15,6 @@ Korjauksia/parannuksia:
  - Uusi peli nappi pelin päätyttyä
  - Sivu jolla pääsee katsomaan piitä kivempaan muotoon sekä takaisin nappi
  - Korjaa käyttäjät
+
+Tietokannasta:
+Tämän hetkinen suunnitelma vaatii 4 taulua: käyttäjät, vihjeet, suoritukset, ystävät. Aiemmin ideana oli mukana olla myös taulu pii, josta löytyy piin desimaalit, mutta se olisi varmaan turha taulu, sillä saman voi toteuttaa tekstitiedostona helpommin. Lisää ominaisuuksia keksittävä jotta päästään 5-10 tauluun.
