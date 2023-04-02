@@ -12,6 +12,8 @@ app.secret_key = getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 index = 0
 sofar = "3."
+with open("pii.txt") as f:
+    pii = str(f.read())
 
 
 @app.route("/")
@@ -51,17 +53,21 @@ def play_post():
     global index, sofar
     index += 1
     answer = request.form["given"]
-    correct = str(db.session.execute(text("SELECT digit FROM pi WHERE id = (:index)"), {"index":index}).fetchone()[0])
+    correct = str(pii[index-1])
+    #correct = str(db.session.execute(text("SELECT digit FROM pi WHERE id = (:index)"), {"index":index}).fetchone()[0])
     if answer == correct:
         sofar += str(correct)
         return render_template("form.html", answered = sofar)
     else:
         fail = f"You failed. The correct digit was {correct}. You got {index-1} correct."
         return fail
+        #TODO make template
 
 
 @app.route("/pi")
 def pi():
+    return pii
+    #TODO make template
     digits = db.session.execute(text("SELECT digit FROM pi")).fetchall()
     content = "3."
     for i in digits:
@@ -70,11 +76,9 @@ def pi():
     return content
         
 
-with open("pii.txt") as f:
-    pii = str(f.read())
 
 
-@app.route("/setpi")
+#@app.route("/setpi")
 def setpi():
     
     db.session.execute(text("DROP TABLE IF EXISTS pi;"))
