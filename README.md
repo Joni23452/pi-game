@@ -1,12 +1,17 @@
 # pi-game
-Sovelluksella voi harjoitella piin desimaaleja. Käyttäjät voivat luoda itselleen vihjeitä joita saa tarvittaessa näkyviin. Suoritukset tallennetaan ja käyttäjät voivat tarkastella omia ennätyksiään ja mahdollisia muita tilastoja. Lisäksi olemassa on leaderboard josta löytyy kaikista käyttäjistä parhaimmat.
+Sovelluksella voi harjoitella piin desimaaleja. Napista Play pääsee pelaamaan, desimaaleja syötetään yksi kerrallaan, jos annettu luku on oikea luku, peli jatkuu. Jos se on väärä, peli päättyy. Napista View pi pääsee katsomaan piitä. Sovelluksessa on myös kirjautumis ominaisuus mutta se ei tällä hetkellä toimi, antaa internal server error.
 
-Sovelluksen ominaisuuksia:
-- Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-- Käyttäjä voi piilottaa itsensä julkisista leaderboardeista.
-- Käyttäjä voi harjoitella piin desimaaleja syöttämällä lukuja yksi kerrallaan, peli jatkuu kunnes käyttäjä syöttää väärän luvun.
-- Pelin päätyttyä käyttäjä voi lisätä itselleen vihjeen kyseisen desimaalin kohdalle jolla hävisi. 
-- Kun käyttäjä on desimaalin kohdalla jolla on käyttäjän luoma vihje, vihjeen saa halutessaan esiin. Vihje poistuu näkyvistä kun peliä jatketaan.
-- Käyttäjä voi nähdä omat suorituksensa listana sekä mahdollisia tilastoja (Esim. suoritusten määrä, ennätyksiä, oikein vastattuja desimaaleja yhteensä, tilastoja aikajanalla)
-- Parhaat käyttäjät pääsevät leaderboardeille. (Voi olla erilaisia leaderboardeja, esim. vihjeettömät ennätykset, kaikki ennätykset, eniten suorituksia, eniten desimaaleja yhteensä)
-- Ylläpitäjä voi tarkastella käyttäjien suorituksia sekä poistaa epäilyttäviä ennätyksiä leaderboardeilta 
+Sovellusta pääsee testaamaan osoitteessa https://pigame.fly.dev/
+
+Tulevia ominaisuuksia:
+ - Käyttäjä voi luoda käyttäjän seka kirjatua sisään ja ulos
+ - Käyttäjä voi aina hävitessään luoda itselleen vihjeen kohdalle jolla hävisi, vihjeet saa halutessaan näkyviin aina kohdissa joilla on lisätty vihje
+ - Suoritukset tallennetaan, käyttäjä pääsee tarkastelemaan omia suorituksiaan
+ - Leaderboard, parhaat suoritukset (ilman vihjeitä) omaavat käyttäjät löytyvät täältä, käyttäjä voi halutessaan poistaa itsensä leaderboardilta
+ - Käyttäjät voivat lisätä toisia käyttäjiä kavereikseen ja vertailla ennätyksiään
+ - Ylläpitäjä voi tarkastella käyttäjien suorituksia ja poistaa epäilyttäviä tuloksia leaderboardilta
+
+Korjauksia/parannuksia:
+ - Uusi peli nappi pelin päätyttyä
+ - Sivu jolla pääsee katsomaan piitä kivempaan muotoon sekä takaisin nappi
+ - Korjaa käyttäjät
