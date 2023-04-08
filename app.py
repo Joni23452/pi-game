@@ -30,7 +30,7 @@ def login():
         if hash_value == db.session.execute(text("SELECT password FROM users WHERE username=:username"),{"username":username}).fetchone()[0]:
             session["username"] = username
     else:
-        sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
+        sql = text("INSERT INTO users (username, password, admin) VALUES (:username, :password, False)")
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
         session["username"] = username
