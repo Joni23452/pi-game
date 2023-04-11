@@ -7,7 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://"
+print(getenv("test"))
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 app.secret_key = getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 index = 0
@@ -24,12 +25,17 @@ def mainpage():
 def login():
     username = request.form["username"]
     usernametuple = (username,)
-    password = request.form["password"]
-    hash_value = generate_password_hash(password)
     if usernametuple in db.session.execute(text("SELECT username FROM users")).fetchall():
-        if hash_value == db.session.execute(text("SELECT password FROM users WHERE username=:username"),{"username":username}).fetchone()[0]:
+        sql=text("SELECT password FROM users WHERE username=:username")
+        hash_value=str(db.session.execute(sql, {"username":username}).fetchone()[0])
+        password = request.form["password"]
+        if check_password_hash(hash_value, password):
             session["username"] = username
+        else:
+            return render_template("wrongpassword.html")
     else:
+        password = request.form["password"]
+        hash_value = generate_password_hash(password)
         sql = text("INSERT INTO users (username, password, admin) VALUES (:username, :password, False)")
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
