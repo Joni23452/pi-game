@@ -50,18 +50,18 @@ def logout():
 @app.route("/play")
 def play():
     global index, sofar
-    index = 0
+    index = 1
     sofar = "3."
     return render_template("form.html", answered = sofar)
 
 @app.route("/play", methods=["POST"])
 def play_post():
     global index, sofar
-    index += 1
     answer = request.form["given"]
     correct = str(pii[index-1])
     #correct = str(db.session.execute(text("SELECT digit FROM pi WHERE id = (:index)"), {"index":index}).fetchone()[0])
     if answer == correct:
+        index += 1
         sofar += str(correct)
         return render_template("form.html", answered = sofar)
     else:
