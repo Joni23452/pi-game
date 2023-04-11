@@ -66,7 +66,7 @@ def play_post():
         return render_template("form.html", answered = sofar)
     else:
         fail = f"You failed. The correct digit was {correct}. You got {index-1} correct."
-        return fail
+        return render_template("fail.html", correct = correct, count = str(index-1))
         #TODO make template
 
 
