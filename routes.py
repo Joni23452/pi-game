@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
 from sqlalchemy.sql import text
+import accounts
 
 index = 0
 sofar = "3."
@@ -16,21 +17,14 @@ def mainpage():
 @app.route("/login",methods=["POST"])
 def login():
     username = request.form["username"]
-    usernametuple = (username,)
-    if usernametuple in db.session.execute(text("SELECT username FROM users")).fetchall():
-        sql=text("SELECT password FROM users WHERE username=:username")
-        hash_value=str(db.session.execute(sql, {"username":username}).fetchone()[0])
-        password = request.form["password"]
-        if check_password_hash(hash_value, password):
+    password = request.form["password"]
+    if accounts.user_exists(username):
+        if accounts.check_password(username, password):
             session["username"] = username
         else:
             return render_template("wrongpassword.html")
     else:
-        password = request.form["password"]
-        hash_value = generate_password_hash(password)
-        sql = text("INSERT INTO users (username, password, admin) VALUES (:username, :password, False)")
-        db.session.execute(sql, {"username":username, "password":hash_value})
-        db.session.commit()
+        accounts.create_account(username, password)
         session["username"] = username
     return redirect("/")
 
