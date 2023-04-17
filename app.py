@@ -7,7 +7,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 
 app = Flask(__name__)
-print(getenv("test"))
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 app.secret_key = getenv("SECRET_KEY")
 db = SQLAlchemy(app)
@@ -52,6 +51,7 @@ def play():
     global index, sofar
     index = 1
     sofar = "3."
+    hints = 0
     return render_template("form.html", answered = sofar)
 
 @app.route("/play", methods=["POST"])
@@ -65,9 +65,7 @@ def play_post():
         sofar += str(correct)
         return render_template("form.html", answered = sofar)
     else:
-        fail = f"You failed. The correct digit was {correct}. You got {index-1} correct."
         return render_template("fail.html", correct = correct, count = str(index-1))
-        #TODO make template
 
 
 @app.route("/pi")
