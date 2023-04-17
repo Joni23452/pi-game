@@ -26,3 +26,6 @@ def correct():
     global index, sofar
     index += 1
     sofar += str(correct)
+
+def getpi():
+    return pii

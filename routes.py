@@ -45,7 +45,7 @@ def play_post():
 
 @app.route("/pi")
 def pi():
-    return pii
+    return game.getpi()
     #TODO make template
     digits = db.session.execute(text("SELECT digit FROM pi")).fetchall()
     content = "3."
