@@ -4,11 +4,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
 from sqlalchemy.sql import text
 import accounts
+import game
 
-index = 0
-sofar = "3."
-with open("pii.txt") as f:
-    pii = str(f.read())
 
 @app.route("/")
 def mainpage():
@@ -35,24 +32,17 @@ def logout():
 
 @app.route("/play")
 def play():
-    global index, sofar
-    index = 1
-    sofar = "3."
-    hints = 0
+    sofar = game.reset_game()
     return render_template("form.html", answered = sofar)
 
 @app.route("/play", methods=["POST"])
 def play_post():
-    global index, sofar
     answer = request.form["given"]
-    correct = str(pii[index-1])
-    #correct = str(db.session.execute(text("SELECT digit FROM pi WHERE id = (:index)"), {"index":index}).fetchone()[0])
-    if answer == correct:
-        index += 1
-        sofar += str(correct)
-        return render_template("form.html", answered = sofar)
+    result = game.check_answer(answer)
+    if result[0]:
+        return render_template("form.html", answered = result[1])
     else:
-        return render_template("fail.html", correct = correct, count = str(index-1))
+        return render_template("fail.html", correct = result[1], count = str(result[2]))
 
 
 @app.route("/pi")
