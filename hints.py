@@ -18,3 +18,8 @@ def get_hint(user_id, decimal):
     sql = text("SELECT content FROM hints WHERE owner_id=:user_id, decimal=:decimal")
     hint = db.session.execute(sql, {"user_id":user_id, "decimal":decimal}).fetchone()[0]
     return hint
+
+def get_hints(user_id):
+    sql = text("SELECT decimal, content FROM hints WHERE owner_id=:user_id")
+    hints = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    return hints
