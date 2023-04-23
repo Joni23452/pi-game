@@ -1,20 +1,32 @@
 # pi-game
-Sovelluksella voi harjoitella piin desimaaleja. Napista Play pääsee pelaamaan, desimaaleja syötetään yksi kerrallaan, jos annettu luku on oikea luku, peli jatkuu. Jos se on väärä, peli päättyy. Napista View pi pääsee katsomaan piitä. Sovelluksessa on myös kirjautumis ominaisuus mutta se ei tällä hetkellä toimi, antaa internal server error.
-
-Sovellusta pääsee testaamaan osoitteessa https://pigame.fly.dev/
+Sovelluksella voi harjoitella piin desimaaleja. Pelissä syötetään piin desimaaleja yksi kerrallaan, jos syötetty luku ei ole oikea, peli päättyy. Pelin päätyttyä voi luoda itselleen vihjeen joka näkyy tulevissa peleissä kyseisen desimaalin kohdalla. Sovelluksessa voi luoda käyttäjän ja kirjautua sisään sekä ulos. Vihjeiden käyttö edellyttää sisään kirjautumista. Sovelluksessa pääsee myös katsomaan piitä.
 
 Tulevia ominaisuuksia:
- - Käyttäjä voi luoda käyttäjän seka kirjatua sisään ja ulos
- - Käyttäjä voi aina hävitessään luoda itselleen vihjeen kohdalle jolla hävisi, vihjeet saa halutessaan näkyviin aina kohdissa joilla on lisätty vihje
- - Suoritukset tallennetaan, käyttäjä pääsee tarkastelemaan omia suorituksiaan
- - Leaderboard, parhaat suoritukset (ilman vihjeitä) omaavat käyttäjät löytyvät täältä, käyttäjä voi halutessaan poistaa itsensä leaderboardilta
- - Käyttäjät voivat lisätä toisia käyttäjiä kavereikseen ja vertailla ennätyksiään
+ - Vihjeet ovat piilossa, ne saa näkyviin vain halutessaan. Pelin aikana katsottujen vihjeiden määrästä pidetään kirjaa. 
+ - Suoritukset tallennetaan: käyttäjä, kuinka pitkälle pääsi, montako vihjettä käytettiin, aikaleima
+ - Leaderboard, kaikista käyttäjistä parhaat suoritukset löytyvät täältä. Käyttäjä voi halutessaan poistaa itsensä leaderboardilta.
+ - Käyttäjät voivat lisätä toisia käyttäjiä kavereikseen ja nähdä toistensa parhaat suoritukset
+ - Käyttäjät voivat luoda ryhmiä, ryhmien jäsenet näkevät ryhmän parhaat tulokset
+ - Käyttäjä voi nähdä erilaisia tilastoja omista suorituksistaan
  - Ylläpitäjä voi tarkastella käyttäjien suorituksia ja poistaa epäilyttäviä tuloksia leaderboardilta
 
-Korjauksia/parannuksia:
- - Uusi peli nappi pelin päätyttyä
- - Sivu jolla pääsee katsomaan piitä kivempaan muotoon sekä takaisin nappi
- - Korjaa käyttäjät
+Sovellus ei ole testattavissa fly.iossa.
 
-Tietokannasta:
-Tämän hetkinen suunnitelma vaatii 4 taulua: käyttäjät, vihjeet, suoritukset, ystävät. Aiemmin ideana oli mukana olla myös taulu pii, josta löytyy piin desimaalit, mutta se olisi varmaan turha taulu, sillä saman voi toteuttaa tekstitiedostona helpommin. Lisää ominaisuuksia keksittävä jotta päästään 5-10 tauluun.
+##Käynnistysohjeet:
+Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. 
+Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
+
+DATABASE_URL=<tietokannan-paikallinen-osoite>
+SECRET_KEY=<salainen-avain>
+
+Seuraavaksi aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r ./requirements.txt
+
+Määritä vielä tietokannan skeema komennolla
+$ psql < schema.sql
+
+Nyt voit käynnistää sovelluksen komennolla
+
+$ flask run
