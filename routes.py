@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session
 from db import db
 import accounts
 import game
+import hints
 
 
 @app.route("/")
@@ -41,6 +42,15 @@ def play_post():
         return render_template("form.html", answered = result[1])
     else:
         return render_template("fail.html", correct = result[1], count = str(result[2]))
+
+@app.route("/createhint", methods=["POST"])
+def createhint():
+    hint = request.form["hint"]
+    decimal = request.form["decimal"]
+    user_id = accounts.get_user_id(request.form["username"])
+    hints.create_hint(user_id, decimal, hint)
+    return redirect("/")
+
 
 
 @app.route("/pi")

@@ -1,5 +1,18 @@
 You failed. The correct digit was {{correct}}. You got {{count}} correct.
 
+{% if session.username %}
+<br>
+Create a hint?
+<form action="/createhint" method="POST">
+<input type="text" name="hint">
+<input type="hidden" name="username" value="{{ session.username }}">
+<input type="hidden" name="decimal" value="{{ count }}">
+<input type="submit" value="Create hint">
+</form>
+{% else %}
+<br>
+You have to be logged in to create hints.
+{% endif %}
 <br>
 
 <form action="/play" method="GET">

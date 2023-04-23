@@ -19,3 +19,7 @@ def create_account(username, password):
     db.session.execute(sql, {"username":username, "password":hash_value})
     db.session.commit()
     return 
+
+def get_user_id(username):
+    sql = text("SELECT id FROM users WHERE username=:username")
+    return db.session.execute(sql, {"username":username}).fetchone()[0]
