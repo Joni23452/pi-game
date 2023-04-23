@@ -31,14 +31,19 @@ def logout():
 
 @app.route("/play")
 def play():
-    sofar = game.reset_game()
-    return render_template("form.html", answered = sofar)
+    result = game.reset_game()
+    if result[1] == None:
+        return render_template("form.html", answered = result[0])
+    else:
+        return render_template("formhint.html", answered = result[0], hint = result[1])
 
 @app.route("/play", methods=["POST"])
 def play_post():
     answer = request.form["given"]
     result = game.check_answer(answer)
-    if result[0]:
+    if result[0] and result[2]!=None:
+        return render_template("formhint.html", answered = result[1], hint = result[2])
+    elif result[0] and result[2]==None:
         return render_template("form.html", answered = result[1])
     else:
         return render_template("fail.html", correct = result[1], count = str(result[2]))

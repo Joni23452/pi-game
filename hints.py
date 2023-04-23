@@ -22,4 +22,14 @@ def get_hint(user_id, decimal):
 def get_hints(user_id):
     sql = text("SELECT decimal, content FROM hints WHERE owner_id=:user_id")
     hints = db.session.execute(sql, {"user_id":user_id}).fetchall()
-    return hints
+    dict={}
+    for decimal, hint in hints:
+        dict.setdefault(decimal,[]).append(hint) #https://www.geeksforgeeks.org/python-convert-a-list-of-tuples-into-dictionary/
+    return dict
+
+def set_hint(hints_dict, decimal):
+    try:
+        hint = hints_dict[decimal][0]
+    except:
+        hint = None
+    return hint
