@@ -1,11 +1,10 @@
-# fly.toml file generated for pigame on 2023-04-02T21:56:45+03:00
+# fly.toml app configuration file generated for pigame on 2023-04-24T00:36:27+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "pigame"
-kill_signal = "SIGINT"
-kill_timeout = 5
-mounts = []
 primary_region = "ams"
-processes = []
 
 [build]
   builder = "paketobuildpacks/builder:base"
@@ -13,20 +12,15 @@ processes = []
 [env]
   PORT = "5000"
 
-[[services]]
+[http_service]
   internal_port = 5000
-  processes = ["app"]
-  protocol = "tcp"
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
 
-  [[services.ports]]
-    force_https = true
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
