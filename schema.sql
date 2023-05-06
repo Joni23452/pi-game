@@ -2,7 +2,7 @@ CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT, password TEXT, admin B
 
 CREATE TABLE hints (id SERIAL PRIMARY KEY, owner_id INT REFERENCES users, decimal INT, content TEXT);
 
-CREATE TABLE scores (id SERIAL PRIMARY KEY, owner_id INT REFERENCES users, score INT, hints INT);
+CREATE TABLE scores (id SERIAL PRIMARY KEY, owner_id INT REFERENCES users, score INT, hints INT, timestamp TEXT);
 
 CREATE TABLE groups (id SERIAL PRIMARY KEY, name TEXT);
 
