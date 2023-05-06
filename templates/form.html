@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 <form action="/play" method="POST">
 <p>{{ answered }}</p>
 <input type="text" name="given">
@@ -8,6 +10,6 @@
 <form action="/" method="GET">
 <input type="submit" value="Back">
 </form>
-
+{% endblock %}
 
 

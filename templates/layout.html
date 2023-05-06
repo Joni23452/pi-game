@@ -1,0 +1,17 @@
+<!doctype html>
+<title>Pi game</title>
+<h1>PI GAME</h1>
+<a href="/">Front page</a>
+<a href="/play">Play</a>
+<a href="/leaderboard">Leaderboards</a>
+
+{% if session.username %}
+<a href="/profile">{{ session.username }}</a>
+<a href="/logout">Log out</a>
+{% else %}
+<a href="/login">Log in/register</a>
+{% endif %}
+
+<hr>
+{% block content %}{% endblock %}
+<hr>

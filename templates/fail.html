@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 You failed. The correct digit was {{correct}}. You got {{count}} correct.
 
 {% if session.username %}
@@ -22,3 +24,4 @@ You have to be logged in to create hints.
 <form action="/" method="GET">
 <input type="submit" value="Back">
 </form>
+{% endblock %}

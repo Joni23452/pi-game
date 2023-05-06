@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Log in/register</h2>
+If entered username doesn't exist a new user will be created and you will be logged in
+<form action="/login" method="POST">
+<p>Username:<br>
+<input type="text" name="username"></p>
+<p>Password:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Log in/register">
+</form>
+{% endblock %}

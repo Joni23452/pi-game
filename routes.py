@@ -10,8 +10,13 @@ import hints
 def mainpage():
     return render_template("page.html")
 
-@app.route("/login",methods=["POST"])
+@app.route("/login")
 def login():
+    return render_template("login.html")
+
+
+@app.route("/login",methods=["POST"])
+def login_post():
     username = request.form["username"]
     password = request.form["password"]
     if accounts.user_exists(username):
