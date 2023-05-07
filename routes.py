@@ -4,6 +4,7 @@ from db import db
 import accounts
 import game
 import hints
+import profiles
 
 
 @app.route("/")
@@ -60,8 +61,11 @@ def leaderboard():
 
 @app.route("/profile")
 def profile():
-    return "profile"
+    return profiles.create_profile()
 
+@app.route("/testing")
+def testing():
+    return str(accounts.get_user_id("ss"))
 
 @app.route("/pi")
 def pi():

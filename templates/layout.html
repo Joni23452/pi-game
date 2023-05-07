@@ -6,7 +6,7 @@
 <a href="/leaderboard">Leaderboards</a>
 
 {% if session.username %}
-<a href="/profile">{{ session.username }}</a>
+<a href="/profile">Profile: {{ session.username }}</a>
 <a href="/logout">Log out</a>
 {% else %}
 <a href="/login">Log in/register</a>
