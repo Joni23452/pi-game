@@ -1,4 +1,4 @@
-from flask import session, render_template
+from flask import session, render_template, redirect
 import accounts
 import hints
 import datetime
@@ -42,7 +42,12 @@ def index():
 
 def play(answer):
     global index, sofar, hints_used, user_id
-    #TODO check input
+    if answer == "retry":
+        if hint_exists():
+            return render_template("formhintavailable.html", answered = sofar)
+        else:
+            return render_template("form.html", answered = sofar)
+        
     if check_answer(answer):
         correct()
         if hint_exists():
@@ -64,3 +69,5 @@ def gamehint():
     hint = hints.set_hint(hints_dict, index)
     return render_template("formhint.html", answered = sofar, hint = hint)
     
+def retry():
+    return render_template()

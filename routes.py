@@ -22,6 +22,8 @@ def login():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
+    if len(username)>16 or len(username)<1 or len(password)<6 or len(password)>99:
+        return render_template("loginerror.html")
     return accounts.login_or_create(username, password)
 
 @app.route("/logout")
@@ -44,6 +46,8 @@ def play_post():
             return game.gamehint()
         
     answer = request.form["given"]
+    if len(answer)!=1:
+        return game.play("retry")
     return game.play(answer)
 
 @app.route("/createhint", methods=["POST"])
