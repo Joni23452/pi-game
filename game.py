@@ -41,7 +41,7 @@ def index():
     return index
 
 def play(answer):
-    global index, sofar, hints_used, user_id
+    global index, sofar, hints_used, user_id, hints_dict
     if answer == "retry":
         if hint_exists():
             return render_template("formhintavailable.html", answered = sofar)
@@ -57,6 +57,8 @@ def play(answer):
     else:
         timestamp = datetime.datetime.now()
         scores.add_score(str(user_id), str(index), str(hints_used), str(timestamp))
+        if hint_exists():
+            return render_template("failhint.html", correct = str(pii[index]), count = str(index), hint=hints.set_hint(hints_dict, index))
         return render_template("fail.html", correct = str(pii[index]), count = str(index))
     
 def hint_exists():

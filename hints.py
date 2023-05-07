@@ -5,7 +5,6 @@ def check_content(content):
     return len(content)<=20
 
 def create_hint(user_id, decimal, content):
-    #TODO check if hint exists already
     if check_content(content):
         sql = text("INSERT INTO hints (owner_id, decimal, content) VALUES (:user_id, :decimal, :content)")
         db.session.execute(sql, {"user_id":user_id, "decimal":decimal, "content":content})
@@ -33,3 +32,16 @@ def set_hint(hints_dict, decimal):
     except:
         hint = None
     return hint
+
+def delete_hint(user_id, decimal):
+    sql = text("DELETE FROM hints WHERE owner_id=:user_id AND decimal=:decimal")
+    db.session.execute(sql, {"user_id":user_id, "decimal":decimal})
+    db.session.commit()
+
+def edit_hint(user_id, decimal, content):
+    if check_content(content):
+        delete_hint(user_id, decimal)
+        create_hint(user_id, decimal, content)
+        return True
+    else:
+        return False

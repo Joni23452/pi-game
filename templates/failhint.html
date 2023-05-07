@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Game over</h2>
+You failed. The correct digit was {{correct}}. You got {{count}} correct.
+
+{% if session.username %}
+<br>
+Edit your hint here?
+<form action="/edithint" method="POST">
+<input type="text" name="hint" value="{{ hint }}">
+<input type="hidden" name="username" value="{{ session.username }}">
+<input type="hidden" name="decimal" value="{{ count }}">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="submit" value="Edit">
+</form>
+{% else %}
+<br>
+You have to be logged in to create hints.
+{% endif %}
+<br>
+
+<form action="/play" method="GET">
+<input type="submit" value="Retry">
+</form>
+
+<form action="/" method="GET">
+<input type="submit" value="Back">
+</form>
+{% endblock %}

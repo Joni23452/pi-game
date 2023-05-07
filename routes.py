@@ -62,6 +62,16 @@ def createhint():
     hints.create_hint(user_id, decimal, hint)
     return redirect("/")
 
+@app.route("/edithint", methods=["POST"])
+def edithint():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    newhint = request.form["hint"]
+    decimal = request.form["decimal"]
+    user_id = accounts.get_user_id(request.form["username"])
+    hints.edit_hint(user_id, decimal, newhint)
+    return redirect("/")
+    
 @app.route("/leaderboard")
 def leaderboard():
     lb = scores.leaderboard_nohints()
