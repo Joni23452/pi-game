@@ -18,6 +18,10 @@ def leaderboard_nohints():
     sql = text("SELECT users.username, MAX(scores.score) FROM users, scores WHERE users.id=scores.owner_id AND hints=0 GROUP BY users.username ORDER BY MAX(scores.score) DESC")
     return db.session.execute(sql).fetchall()
 
+def leaderboard_mostgames():
+    sql = text("SELECT users.username, COUNT(scores.score) FROM users, scores WHERE users.id=scores.owner_id GROUP BY users.username ORDER BY COUNT(scores.score) DESC")
+    return db.session.execute(sql).fetchall()
+
 def total_games(user_id):
     sql = text("SELECT COUNT(score) FROM scores WHERE owner_id=:user_id")
     return db.session.execute(sql, {"user_id":user_id}).fetchone()[0]
