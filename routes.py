@@ -5,6 +5,7 @@ import accounts
 import game
 import hints
 import profiles
+import scores
 
 
 @app.route("/")
@@ -57,7 +58,10 @@ def createhint():
 
 @app.route("/leaderboard")
 def leaderboard():
-    return "TODO"
+    lb = scores.leaderboard_nohints()
+    lb2 = scores.leaderboardalize(lb)
+
+    return render_template("leaderboardglobal.html", leaderboard=lb2)
 
 @app.route("/profile")
 def profile():
