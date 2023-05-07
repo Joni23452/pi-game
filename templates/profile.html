@@ -5,4 +5,13 @@
 You've been able to memorize {{ max }} digits of pi without using any hints
 <br>
 You've played {{ total }} times
+<br>
+You've answered {{ sum }} decimals correctly
+<br>
+<h3>Game history:</h3>
+{% for game in games %}
+<br>
+{{ game[0] }} decimals, {{ game[1] }} hints used, on {{ game[2] }}
+{% endfor %}
 {% endblock %}
+

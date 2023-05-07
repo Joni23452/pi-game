@@ -14,6 +14,10 @@ def max_score_nohints(user_id):
     sql = text("SELECT MAX(score) FROM scores WHERE owner_id=:user_id AND hints=0")
     return db.session.execute(sql, {"user_id":user_id}).fetchone()[0]
 
+def total_answered(user_id):
+    sql = text("SELECT SUM(score) FROM scores WHERE owner_id=:user_id")
+    return db.session.execute(sql, {"user_id":user_id}).fetchone()[0]
+
 def leaderboard_nohints():
     sql = text("SELECT users.username, MAX(scores.score) FROM users, scores WHERE users.id=scores.owner_id AND hints=0 GROUP BY users.username ORDER BY MAX(scores.score) DESC")
     return db.session.execute(sql).fetchall()
