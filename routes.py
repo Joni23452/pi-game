@@ -86,6 +86,14 @@ def leaderboard_mostgames():
 
     return render_template("leaderboardgames.html", leaderboard=lb2)
 
+@app.route("/leaderboard/mostplayed")
+def leaderboard_mostplayed():
+    lb = scores.leaderboard_mostplayed()
+    lb2 =scores.leaderboardalize(lb)
+
+    return render_template("leaderboardmostanswers.html", leaderboard=lb2)
+
+
 @app.route("/profile")
 def profile():
     return profiles.create_profile()

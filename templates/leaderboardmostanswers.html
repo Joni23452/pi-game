@@ -1,0 +1,9 @@
+{% extends "leaderboardlayout.html" %}
+
+{% block leaderboard %}
+<h3>Most correct answers</h3>
+{% for user in leaderboard %}
+<br>
+{{user[0]}}. {{ user[1] }}: {{ user[2]}}
+{% endfor %}
+{% endblock %}
