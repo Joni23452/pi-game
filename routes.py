@@ -1,12 +1,7 @@
 from app import app
 from flask import render_template, request, redirect, session, abort
 from db import db
-import accounts
-import game
-import hints
-import profiles
-import scores
-import secrets
+import accounts, game, hints, profiles, scores
 
 
 @app.route("/")
@@ -97,32 +92,3 @@ def leaderboard_mostplayed():
 @app.route("/profile")
 def profile():
     return profiles.create_profile()
-
-@app.route("/history")
-def history():
-    return "history"
-
-@app.route("/pi")
-def pi():
-    return game.getpi()
-    #TODO make template
-    digits = db.session.execute(text("SELECT digit FROM pi")).fetchall()
-    content = "3."
-    for i in digits:
-        content += str(i[0])
-    
-    return content
-        
-
-
-
-#@app.route("/setpi")
-def setpi():
-    
-    db.session.execute(text("DROP TABLE IF EXISTS pi;"))
-    db.session.execute(text("CREATE TABLE pi (id SERIAL PRIMARY KEY, digit INT);"))
-    for i in pii:
-        sql = text("INSERT INTO pi (digit) VALUES (:i)")
-        db.session.execute(sql, {"i":str(i)})
-    db.session.commit()
-    return "ok"

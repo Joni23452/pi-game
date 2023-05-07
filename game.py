@@ -1,8 +1,5 @@
-from flask import session, render_template, redirect
-import accounts
-import hints
-import datetime
-import scores
+from flask import session, render_template
+import accounts, hints, datetime, scores
 
 index = 0
 sofar = "3."
