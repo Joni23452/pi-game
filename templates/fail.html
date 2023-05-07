@@ -10,6 +10,7 @@ Create a hint?
 <input type="text" name="hint">
 <input type="hidden" name="username" value="{{ session.username }}">
 <input type="hidden" name="decimal" value="{{ count }}">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Create hint">
 </form>
 {% else %}

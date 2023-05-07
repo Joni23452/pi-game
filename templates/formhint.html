@@ -5,6 +5,7 @@
 <p>{{ answered }}</p>
 <input type="text" name="given">
 <input type="hidden" name="hint_requested" value="False">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <br>
 <input type="submit" value="Continue">
 </form>

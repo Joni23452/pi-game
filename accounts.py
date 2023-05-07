@@ -1,6 +1,8 @@
 from db import db
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.sql import text
+from flask import session, render_template, redirect
+import secrets
 
 
 def user_exists(username):
@@ -23,3 +25,17 @@ def create_account(username, password):
 def get_user_id(username):
     sql = text("SELECT id FROM users WHERE username=:username")
     return db.session.execute(sql, {"username":username}).fetchone()[0]
+
+def login_or_create(username, password):
+    if user_exists(username):
+        if check_password(username, password):
+            session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
+        else:
+            return render_template("wrongpassword.html")
+    else:
+        create_account(username, password)
+        session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
+
+    return redirect("/")

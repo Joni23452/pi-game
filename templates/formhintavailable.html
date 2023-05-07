@@ -5,6 +5,7 @@
 <p>{{ answered }}</p>
 <input type="text" name="given">
 <input type="hidden" name="hint_requested" value="False">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <br>
 <input type="submit" value="Continue">
 </form>
@@ -12,6 +13,7 @@
 You have a hint: 
 <form action="/play" method="POST">
 <input type="hidden" name="hint_requested" value="True">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="REVEAL">
 </form>
 <br>

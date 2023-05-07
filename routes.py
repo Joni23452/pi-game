@@ -1,11 +1,12 @@
 from app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, abort
 from db import db
 import accounts
 import game
 import hints
 import profiles
 import scores
+import secrets
 
 
 @app.route("/")
@@ -21,19 +22,12 @@ def login():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
-    if accounts.user_exists(username):
-        if accounts.check_password(username, password):
-            session["username"] = username
-        else:
-            return render_template("wrongpassword.html")
-    else:
-        accounts.create_account(username, password)
-        session["username"] = username
-    return redirect("/")
+    return accounts.login_or_create(username, password)
 
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["csrf_token"]
     return redirect("/")
 
 @app.route("/play")
@@ -42,14 +36,20 @@ def play():
 
 @app.route("/play", methods=["POST"])
 def play_post():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+
     if request.form["hint_requested"] == "True":
         if game.hint_exists():
             return game.gamehint()
+        
     answer = request.form["given"]
     return game.play(answer)
 
 @app.route("/createhint", methods=["POST"])
 def createhint():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     hint = request.form["hint"]
     decimal = request.form["decimal"]
     user_id = accounts.get_user_id(request.form["username"])
@@ -67,9 +67,9 @@ def leaderboard():
 def profile():
     return profiles.create_profile()
 
-@app.route("/testing")
-def testing():
-    return str(accounts.get_user_id("ss"))
+@app.route("/history")
+def history():
+    return "history"
 
 @app.route("/pi")
 def pi():
