@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/play" method="POST">
+<p>{{ answered }}</p>
+<input type="text" name="given">
+<input type="hidden" name="hint_requested" value="False">
+<br>
+<input type="submit" value="Continue">
+</form>
+<br>
+You have a hint: 
+<form action="/play" method="POST">
+<input type="hidden" name="hint_requested" value="True">
+<input type="submit" value="REVEAL">
+</form>
+<br>
+<form action="/" method="GET">
+<input type="submit" value="Back">
+</form>
+{% endblock %}
+    
+    
+    

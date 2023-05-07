@@ -1,16 +1,19 @@
-from flask import session
+from flask import session, render_template
 import accounts
 import hints
+import datetime
+import scores
 
 index = 0
 sofar = "3."
 hints_used = 0
 hints_dict = {}
+user_id = ""
 with open("pii.txt") as f:
     pii = str(f.read())
 
 def reset_game():
-    global index, sofar, hints_used, hints_dict
+    global index, sofar, hints_used, hints_dict, user_id
     index = 0
     sofar = "3."
     hints_used = 0
@@ -21,25 +24,42 @@ def reset_game():
     return (sofar, hint)
 
 def check_answer(answer):
-    global index, sofar, hints_dict
+    global index
     correct = str(pii[index])
-    if answer == correct:
-        index += 1
-        sofar += correct
-        hint = hints.set_hint(hints_dict, index)
-        result = (True, sofar, hint)
-        return result
-    else:
-        result = (False, correct, index)
-        return result
+    return answer==correct
 
 def correct():
     global index, sofar
+    sofar += str(pii[index])
     index += 1
-    sofar += str(correct)
 
 def getpi():
     return pii
 
 def index():
     return index
+
+def play(answer):
+    global index, sofar, hints_used, user_id
+    #TODO check input
+    if check_answer(answer):
+        correct()
+        if hint_exists():
+            return render_template("formhintavailable.html", answered = sofar)
+        else:
+            return render_template("form.html", answered = sofar)
+    else:
+        timestamp = datetime.datetime.now()
+        scores.add_score(str(user_id), str(index), str(hints_used), str(timestamp))
+        return render_template("fail.html", correct = str(pii[index]), count = str(index))
+    
+def hint_exists():
+    global hints_dict, index
+    return hints.set_hint(hints_dict, index) != None
+
+def gamehint():
+    global index, sofar, hints_dict, hints_used
+    hints_used += 1
+    hint = hints.set_hint(hints_dict, index)
+    return render_template("formhint.html", answered = sofar, hint = hint)
+    

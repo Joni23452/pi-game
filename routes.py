@@ -44,14 +44,11 @@ def play():
 
 @app.route("/play", methods=["POST"])
 def play_post():
+    if request.form["hint_requested"] == "True":
+        if game.hint_exists():
+            return game.gamehint()
     answer = request.form["given"]
-    result = game.check_answer(answer)
-    if result[0] and result[2]!=None:
-        return render_template("formhint.html", answered = result[1], hint = result[2])
-    elif result[0] and result[2]==None:
-        return render_template("form.html", answered = result[1])
-    else:
-        return render_template("fail.html", correct = result[1], count = str(result[2]))
+    return game.play(answer)
 
 @app.route("/createhint", methods=["POST"])
 def createhint():
@@ -61,6 +58,9 @@ def createhint():
     hints.create_hint(user_id, decimal, hint)
     return redirect("/")
 
+@app.route("/leaderboard")
+def leaderboard():
+    return "TODO"
 
 
 @app.route("/pi")
