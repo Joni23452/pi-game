@@ -1,14 +1,17 @@
 # pi-game
-Sovelluksella voi harjoitella piin desimaaleja. Pelissä syötetään piin desimaaleja yksi kerrallaan, jos syötetty luku ei ole oikea, peli päättyy. Pelin päätyttyä voi luoda itselleen vihjeen joka näkyy tulevissa peleissä kyseisen desimaalin kohdalla. Sovelluksessa voi luoda käyttäjän ja kirjautua sisään sekä ulos. Vihjeiden käyttö edellyttää sisään kirjautumista. Sovelluksessa pääsee myös katsomaan piitä.
+Sovelluksessa voi luoda käyttäjän sekä kirjautua sisään ja ulos. Kirjauduttuaan sisään pääsee pelaamaan peliä. 
 
-Tulevia ominaisuuksia:
- - Vihjeet ovat piilossa, ne saa näkyviin vain halutessaan. Pelin aikana katsottujen vihjeiden määrästä pidetään kirjaa. 
- - Suoritukset tallennetaan: käyttäjä, kuinka pitkälle pääsi, montako vihjettä käytettiin, aikaleima
- - Leaderboard, kaikista käyttäjistä parhaat suoritukset löytyvät täältä. Käyttäjä voi halutessaan poistaa itsensä leaderboardilta.
- - Käyttäjät voivat lisätä toisia käyttäjiä kavereikseen ja nähdä toistensa parhaat suoritukset
- - Käyttäjät voivat luoda ryhmiä, ryhmien jäsenet näkevät ryhmän parhaat tulokset
- - Käyttäjä voi nähdä erilaisia tilastoja omista suorituksistaan
- - Ylläpitäjä voi tarkastella käyttäjien suorituksia ja poistaa epäilyttäviä tuloksia leaderboardilta
+Pelissä syötetään piin desimaaleja yksi kerrallaan, peli päättyy kun väärä luku syötetään. 
+
+Pelin päätyttyä pääsee lisäämään kohdalle jossa hävisi itselleen vihjeen, tai muokkaamaan vihjettä jos vihje on jo olemassa. Vihjeet saa halutessaan näkyviin pelin aikana kun tulee kohdalle jossa vihje on olemassa.
+
+Sovelluksessa pääsee katsomaan leaderboardeja, joista löytyy ilman vihjeitä pisimmälle päässeet pelaajat, eniten pelejä pelanneet pelaajat, sekä yhteensä eniten lukuja oikein syöttäneet pelaajat.
+
+Sovelluksessa pääsee katsomaan omaa profiiliaan josta löytyy käyttäjän omat tilastot sekä pelihistoria
+
+Sovelluksessa käytetään vain 3 tietokanta taulua, aiemman suunnitelman mukaiset ryhmät eivät toteutuneet.
+
+
 
 Sovellus ei ole testattavissa fly.iossa.
 
