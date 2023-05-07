@@ -2,7 +2,9 @@
 <title>Pi game</title>
 <h1>PI GAME</h1>
 <a href="/">Front page</a>
+{% if session.username %}
 <a href="/play">Play</a>
+{% endif %}
 <a href="/leaderboard">Leaderboards</a>
 
 {% if session.username %}

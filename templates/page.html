@@ -2,4 +2,9 @@
 {% block content %}
 <h2>Front page</h2>
 <b>Welcome to</b> <i>Pi Game</i>!
+
+{% if not session.username %}
+<br>
+Please log in or register to play
+{% endif %}
 {% endblock %}

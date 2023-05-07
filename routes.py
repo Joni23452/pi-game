@@ -34,6 +34,8 @@ def logout():
 
 @app.route("/play")
 def play():
+    if not session.get("username"):
+        return redirect("/login")
     return game.reset_game()
 
 @app.route("/play", methods=["POST"])
