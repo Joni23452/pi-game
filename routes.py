@@ -36,11 +36,7 @@ def logout():
 
 @app.route("/play")
 def play():
-    result = game.reset_game()
-    if result[1] == None:
-        return render_template("form.html", answered = result[0])
-    else:
-        return render_template("formhint.html", answered = result[0], hint = result[1])
+    return game.reset_game()
 
 @app.route("/play", methods=["POST"])
 def play_post():
@@ -61,6 +57,10 @@ def createhint():
 @app.route("/leaderboard")
 def leaderboard():
     return "TODO"
+
+@app.route("/profile")
+def profile():
+    return "profile"
 
 
 @app.route("/pi")

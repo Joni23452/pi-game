@@ -19,9 +19,10 @@ def reset_game():
     hints_used = 0
     user_id = accounts.get_user_id(session["username"])
     hints_dict = hints.get_hints(user_id)
-    hint = hints.set_hint(hints_dict, index)
-    
-    return (sofar, hint)
+    if hint_exists():
+        return render_template("formhintavailable.html", answered = sofar)
+    else:
+        return render_template("form.html", answered = sofar)
 
 def check_answer(answer):
     global index
